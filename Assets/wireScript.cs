@@ -910,4 +910,67 @@ public class wireScript : MonoBehaviour
             }
         }
     }
+
+	#pragma warning disable 414
+	private string TwitchHelpMessage = "Start the module using !{0} initalize. Set the dials using !{0} set <dial number> <letter>. Multiple dial and letter pairs can be given. Cut the wire based on the seconds digit using !{0} cut at <number>.";
+	#pragma warning restore 414
+
+	IEnumerator ProcessTwitchCommand(string inputCommand)
+	{
+		inputCommand = System.Text.RegularExpressions.Regex.Replace(inputCommand, "^cut (at|on) ", "cut ");
+		string[] split = inputCommand.ToLowerInvariant().Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries);
+
+		if (split.Length == 1 && (split[0] == "initiate" || split[0] == "initalize" || split[0] == "start" || split[0] == "go") && !startLock)
+		{
+			startButton.OnInteract();
+			yield return new WaitForSeconds(0.1f);
+		}
+		else if (startLock)
+		{
+			if (split.Length >= 3 && split.Length % 2 == 1 && (split[0] == "set" || split[0] == "dial"))
+			{
+				// Stores all the actions that the user wants to execute, index 0 is the dial index and index 1 is the target index of that dial.
+				List<int[]> actions = new List<int[]>();
+
+				string[] dialLetterSets = new[] { "qizu", "smea", "tbyo" };
+				KMSelectable[] dials = new[] { switch1, switch2, switch3 };
+				string[] dialLetters = new[] { switch1Set, switch2Set, switch3Set };
+
+				for (int i = 1; i < split.Length; i += 2)
+				{
+					int dialPosition;
+					if (!int.TryParse(split[i], out dialPosition)) yield break;
+
+					int targetIndex = dialLetterSets[dialPosition - 1].IndexOf(split[i + 1]);
+					if (targetIndex == -1) yield break;
+
+					actions.Add(new[] { dialPosition - 1, targetIndex });
+				}
+
+				foreach (int[] action in actions.GroupBy(x => x[0]).Select(x => x.Last()))
+				{
+					int dialIndex = action[0];
+
+					KMSelectable selectable = dials[dialIndex];
+					int currentIndex = dialLetterSets[dialIndex].IndexOf(dialLetters[dialIndex], StringComparison.InvariantCultureIgnoreCase);
+					for (int i = 0; i < (action[1] - currentIndex + 4) % 4; i++)
+					{
+						selectable.OnInteract();
+						yield return new WaitWhile(() => turnLock1 || turnLock2 || turnLock3);
+					}
+				}
+			}
+			else if (split.Length == 2 && split[0] == "cut")
+			{
+				int seconds;
+				if (int.TryParse(split[1], out seconds) && seconds >= 0 && seconds <= 9)
+				{
+					yield return null;
+					while (Mathf.FloorToInt(Bomb.GetTime()) % 10 != seconds) yield return "trycancel Wire wasn't cut due to request to cancel.";
+
+					intWire.OnInteract();
+				}
+			}
+		}
+	}
 }
