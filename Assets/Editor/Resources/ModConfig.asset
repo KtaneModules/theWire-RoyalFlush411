@@ -13,7 +13,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: wire
   title: The Wire
-  description: 'The Wire 1.02
+  description: 'The Wire 1.1
 
     Only one wire? You should probably cut it. Wait, what do those dials do?
 
@@ -23,8 +23,10 @@ MonoBehaviour:
 
     Created by: Royal_Flu$h
 
+    TwitchPlays implemented by: Samfun123
 
-    Manual available here: https://www.dropbox.com/s/ptr8horcumg8w16/The%20Wire.pdf?dl=0'
-  version: 1.02
+
+    Manual available here: https://ktane.timwi.de/HTML/The%20Wire.html'
+  version: 1.1
   outputFolder: build
   previewImage: {fileID: 2800000, guid: 397407f0c901e45049e36ad9a84092be, type: 3}

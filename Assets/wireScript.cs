@@ -912,7 +912,7 @@ public class wireScript : MonoBehaviour
     }
 
 	#pragma warning disable 414
-	private string TwitchHelpMessage = "Start the module using !{0} initalize. Set the dials using !{0} set <dial number> <letter>. Multiple dial and letter pairs can be given. Cut the wire based on the seconds digit using !{0} cut at <number>.";
+	private string TwitchHelpMessage = "Start the module using !{0} initiate. Set the dials using !{0} set <dial number> <letter>. Multiple dial and letter pairs can be given. Cut the wire based on the seconds digit using !{0} cut at <number>.";
 	#pragma warning restore 414
 
 	IEnumerator ProcessTwitchCommand(string inputCommand)
@@ -920,7 +920,7 @@ public class wireScript : MonoBehaviour
 		inputCommand = System.Text.RegularExpressions.Regex.Replace(inputCommand, "^cut (at|on) ", "cut ");
 		string[] split = inputCommand.ToLowerInvariant().Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries);
 
-		if (split.Length == 1 && (split[0] == "initiate" || split[0] == "initalize" || split[0] == "start" || split[0] == "go") && !startLock)
+		if (split.Length == 1 && (split[0] == "initiate" || split[0] == "initialize" || split[0] == "start" || split[0] == "go") && !startLock)
 		{
 			startButton.OnInteract();
 			yield return new WaitForSeconds(0.1f);
