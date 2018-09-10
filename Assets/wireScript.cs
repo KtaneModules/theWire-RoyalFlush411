@@ -940,7 +940,7 @@ public class wireScript : MonoBehaviour
                 for (int i = 1; i < split.Length; i += 2)
                 {
                     int dialPosition;
-                    if (!int.TryParse(split[i], out dialPosition)) yield break;
+                    if (!int.TryParse(split[i], out dialPosition) || dialPosition < 1 || dialPosition > dialLetterSets.Length) yield break;
 
                     int targetIndex = dialLetterSets[dialPosition - 1].IndexOf(split[i + 1]);
                     if (targetIndex == -1) yield break;
