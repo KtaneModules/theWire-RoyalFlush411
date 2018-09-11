@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -266,7 +266,7 @@ public class wireScript : MonoBehaviour
     }
     void flowFour() //number + 1 = prime?
     {
-        if (displayedNumber == 1 || displayedNumber == 2 || displayedNumber == 4|| displayedNumber == 6)
+        if (displayedNumber == 1 || displayedNumber == 2 || displayedNumber == 4 || displayedNumber == 6)
         {
             Debug.LogFormat("[The Wire #{0}] {1} + 1 = {2}, which is prime. Take the 'yes' path.", moduleId, displayedNumber, displayedNumber + 1);
             flowEight();
@@ -601,7 +601,7 @@ public class wireScript : MonoBehaviour
 
     private IEnumerator switch1Turn()
     {
-        while(numberOfTurns1 != 20)
+        while (numberOfTurns1 != 20)
         {
             yield return new WaitForSeconds(0.001f);
             renderers[0].transform.Rotate(Vector3.up, 4.5f);
@@ -643,7 +643,7 @@ public class wireScript : MonoBehaviour
 
     private IEnumerator switch2Turn()
     {
-        while(numberOfTurns2 != 20)
+        while (numberOfTurns2 != 20)
         {
             yield return new WaitForSeconds(0.001f);
             renderers[1].transform.Rotate(Vector3.up, 4.5f);
@@ -685,7 +685,7 @@ public class wireScript : MonoBehaviour
 
     private IEnumerator switch3Turn()
     {
-        while(numberOfTurns3 != 20)
+        while (numberOfTurns3 != 20)
         {
             yield return new WaitForSeconds(0.001f);
             renderers[2].transform.Rotate(Vector3.up, 4.5f);
@@ -720,16 +720,16 @@ public class wireScript : MonoBehaviour
         }
         else
         {
-            initiated ++;
+            initiated++;
             Debug.LogFormat("[The Wire #{0}] ___SYSTEM INITIATED: ITERATION #{1}___", moduleId, initiated);
             startLock = true;
             blinkLock = true;
-            wireLock= true;
+            wireLock = true;
             intWire.gameObject.SetActive(true);
             switch1.gameObject.SetActive(true);
             switch2.gameObject.SetActive(true);
             switch3.gameObject.SetActive(true);
-            int wireTextureIndex = UnityEngine.Random.Range(0,6);
+            int wireTextureIndex = UnityEngine.Random.Range(0, 6);
             selectedWireTexture = textureOptions[wireTextureIndex];
             string chosenWireColour = colourOptions[wireTextureIndex];
             Debug.LogFormat("[The Wire #{0}] The wire colour is {1}.", moduleId, chosenWireColour);
@@ -739,7 +739,7 @@ public class wireScript : MonoBehaviour
 
             foreach (Renderer rend in renderers)
             {
-                selectedTexture = UnityEngine.Random.Range(0,6);
+                selectedTexture = UnityEngine.Random.Range(0, 6);
                 rend.material.mainTexture = textureOptions[selectedTexture];
             }
 
@@ -747,7 +747,7 @@ public class wireScript : MonoBehaviour
             Debug.LogFormat("[The Wire #{0}] The dial 2 colour is {1}", moduleId, renderers[1].material.mainTexture.name.Replace("Mat", "."));
             Debug.LogFormat("[The Wire #{0}] The dial 3 colour is {1}", moduleId, renderers[2].material.mainTexture.name.Replace("Mat", "."));
 
-            displayedNumber = UnityEngine.Random.Range(0,10);
+            displayedNumber = UnityEngine.Random.Range(0, 10);
             Debug.LogFormat("[The Wire #{0}] The displayed number is {1}.", moduleId, displayedNumber);
             numberText.text = displayedNumber.ToString();
             flowStart();
@@ -764,7 +764,7 @@ public class wireScript : MonoBehaviour
     {
         while (blinkLock)
         {
-            yield return new WaitForSeconds (1f);
+            yield return new WaitForSeconds(1f);
             if (lightOnBool)
             {
                 startButtonLight.material.mainTexture = lightOff;
@@ -777,7 +777,7 @@ public class wireScript : MonoBehaviour
                 lightOnBool = true;
             }
         }
-    startButtonLight.material.mainTexture = lightOff;
+        startButtonLight.material.mainTexture = lightOff;
     }
 
     private IEnumerator startAnimation()
@@ -786,7 +786,7 @@ public class wireScript : MonoBehaviour
         {
             yield return new WaitForSeconds(0.005f);
             startButtonRend.transform.localPosition = startButtonRend.transform.localPosition + Vector3.up * -4f;
-            buttonDistance ++;
+            buttonDistance++;
         }
         buttonDistance = 0;
     }
@@ -797,7 +797,7 @@ public class wireScript : MonoBehaviour
         {
             yield return new WaitForSeconds(0.005f);
             startButtonRend.transform.localPosition = startButtonRend.transform.localPosition + Vector3.up * 4f;
-            buttonDistance ++;
+            buttonDistance++;
         }
         buttonDistance = 0;
         startAnimationDone = true;
@@ -815,10 +815,10 @@ public class wireScript : MonoBehaviour
             renderers[0].transform.localPosition = renderers[0].transform.localPosition + Vector3.up * 0.000125f;
             renderers[1].transform.localPosition = renderers[1].transform.localPosition + Vector3.up * 0.000125f;
             renderers[2].transform.localPosition = renderers[2].transform.localPosition + Vector3.up * 0.000125f;
-            distance ++;
+            distance++;
         }
-    distance = 0;
-    wireLock = false;
+        distance = 0;
+        wireLock = false;
     }
 
     private IEnumerator timer()
@@ -849,7 +849,7 @@ public class wireScript : MonoBehaviour
             renderers[0].transform.localPosition = renderers[0].transform.localPosition + Vector3.up * -0.000125f;
             renderers[1].transform.localPosition = renderers[1].transform.localPosition + Vector3.up * -0.000125f;
             renderers[2].transform.localPosition = renderers[2].transform.localPosition + Vector3.up * -0.000125f;
-            distance ++;
+            distance++;
         }
         StartCoroutine(reverseStartAnimation());
         distance = 0;
@@ -911,66 +911,68 @@ public class wireScript : MonoBehaviour
         }
     }
 
-	#pragma warning disable 414
-	private string TwitchHelpMessage = "Start the module using !{0} initiate. Set the dials using !{0} set <dial number> <letter>. Multiple dial and letter pairs can be given. Cut the wire based on the seconds digit using !{0} cut at <number>.";
-	#pragma warning restore 414
+#pragma warning disable 414
+    private readonly string TwitchHelpMessage = "Start the module using “!{0} initiate”. Set the dials using “!{0} set <dial number> <letter>”. Multiple dial and letter pairs can be given. Cut the wire based on the seconds digit using “!{0} cut at <number>”.";
+#pragma warning restore 414
 
-	IEnumerator ProcessTwitchCommand(string inputCommand)
-	{
-		inputCommand = System.Text.RegularExpressions.Regex.Replace(inputCommand, "^cut (at|on) ", "cut ");
-		string[] split = inputCommand.ToLowerInvariant().Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries);
+    IEnumerator ProcessTwitchCommand(string inputCommand)
+    {
+        inputCommand = System.Text.RegularExpressions.Regex.Replace(inputCommand, "^cut (at|on) ", "cut ");
+        string[] split = inputCommand.ToLowerInvariant().Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries);
 
-		if (split.Length == 1 && (split[0] == "initiate" || split[0] == "initialize" || split[0] == "start" || split[0] == "go") && !startLock)
-		{
-			startButton.OnInteract();
-			yield return new WaitForSeconds(0.1f);
-		}
-		else if (startLock)
-		{
-			if (split.Length >= 3 && split.Length % 2 == 1 && (split[0] == "set" || split[0] == "dial"))
-			{
-				// Stores all the actions that the user wants to execute, index 0 is the dial index and index 1 is the target index of that dial.
-				List<int[]> actions = new List<int[]>();
+        if (split.Length == 1 && (split[0] == "initiate" || split[0] == "initialize" || split[0] == "start" || split[0] == "go") && !startLock)
+        {
+            yield return null;
+            startButton.OnInteract();
+            yield return new WaitForSeconds(0.1f);
+        }
+        else if (startLock)
+        {
+            if (split.Length >= 3 && split.Length % 2 == 1 && (split[0] == "set" || split[0] == "dial"))
+            {
+                // Stores all the actions that the user wants to execute, index 0 is the dial index and index 1 is the target index of that dial.
+                List<int[]> actions = new List<int[]>();
 
-				string[] dialLetterSets = new[] { "qizu", "smea", "tbyo" };
-				KMSelectable[] dials = new[] { switch1, switch2, switch3 };
-				string[] dialLetters = new[] { switch1Set, switch2Set, switch3Set };
+                string[] dialLetterSets = new[] { "qizu", "smea", "tbyo" };
+                KMSelectable[] dials = new[] { switch1, switch2, switch3 };
+                string[] dialLetters = new[] { switch1Set, switch2Set, switch3Set };
 
-				for (int i = 1; i < split.Length; i += 2)
-				{
-					int dialPosition;
-					if (!int.TryParse(split[i], out dialPosition)) yield break;
+                for (int i = 1; i < split.Length; i += 2)
+                {
+                    int dialPosition;
+                    if (!int.TryParse(split[i], out dialPosition) || dialPosition < 1 || dialPosition > dialLetterSets.Length) yield break;
 
-					int targetIndex = dialLetterSets[dialPosition - 1].IndexOf(split[i + 1]);
-					if (targetIndex == -1) yield break;
+                    int targetIndex = dialLetterSets[dialPosition - 1].IndexOf(split[i + 1]);
+                    if (targetIndex == -1) yield break;
 
-					actions.Add(new[] { dialPosition - 1, targetIndex });
-				}
+                    actions.Add(new[] { dialPosition - 1, targetIndex });
+                }
 
-				foreach (int[] action in actions.GroupBy(x => x[0]).Select(x => x.Last()))
-				{
-					int dialIndex = action[0];
+                yield return null;
+                foreach (int[] action in actions.GroupBy(x => x[0]).Select(x => x.Last()))
+                {
+                    int dialIndex = action[0];
 
-					KMSelectable selectable = dials[dialIndex];
-					int currentIndex = dialLetterSets[dialIndex].IndexOf(dialLetters[dialIndex], StringComparison.InvariantCultureIgnoreCase);
-					for (int i = 0; i < (action[1] - currentIndex + 4) % 4; i++)
-					{
-						selectable.OnInteract();
-						yield return new WaitWhile(() => turnLock1 || turnLock2 || turnLock3);
-					}
-				}
-			}
-			else if (split.Length == 2 && split[0] == "cut")
-			{
-				int seconds;
-				if (int.TryParse(split[1], out seconds) && seconds >= 0 && seconds <= 9)
-				{
-					yield return null;
-					while (Mathf.FloorToInt(Bomb.GetTime()) % 10 != seconds) yield return "trycancel Wire wasn't cut due to request to cancel.";
+                    KMSelectable selectable = dials[dialIndex];
+                    int currentIndex = dialLetterSets[dialIndex].IndexOf(dialLetters[dialIndex], StringComparison.InvariantCultureIgnoreCase);
+                    for (int i = 0; i < (action[1] - currentIndex + 4) % 4; i++)
+                    {
+                        selectable.OnInteract();
+                        yield return new WaitWhile(() => turnLock1 || turnLock2 || turnLock3);
+                    }
+                }
+            }
+            else if (split.Length == 2 && split[0] == "cut")
+            {
+                int seconds;
+                if (int.TryParse(split[1], out seconds) && seconds >= 0 && seconds <= 9)
+                {
+                    yield return null;
+                    while (Mathf.FloorToInt(Bomb.GetTime()) % 10 != seconds) yield return "trycancel Wire wasn't cut due to request to cancel.";
 
-					intWire.OnInteract();
-				}
-			}
-		}
-	}
+                    intWire.OnInteract();
+                }
+            }
+        }
+    }
 }
