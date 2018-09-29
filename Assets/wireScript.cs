@@ -957,8 +957,10 @@ public class wireScript : MonoBehaviour
                     int currentIndex = dialLetterSets[dialIndex].IndexOf(dialLetters[dialIndex], StringComparison.InvariantCultureIgnoreCase);
                     for (int i = 0; i < (action[1] - currentIndex + 4) % 4; i++)
                     {
+                        if (!startLock) yield break;
+
                         selectable.OnInteract();
-                        yield return new WaitWhile(() => turnLock1 || turnLock2 || turnLock3);
+                        yield return new WaitWhile(() => turnLock1 || turnLock2 || turnLock3 || !startLock);
                     }
                 }
             }
@@ -968,7 +970,12 @@ public class wireScript : MonoBehaviour
                 if (int.TryParse(split[1], out seconds) && seconds >= 0 && seconds <= 9)
                 {
                     yield return null;
-                    while (Mathf.FloorToInt(Bomb.GetTime()) % 10 != seconds) yield return "trycancel Wire wasn't cut due to request to cancel.";
+                    while (Mathf.FloorToInt(Bomb.GetTime()) % 10 != seconds && startLock) yield return "trycancel Wire wasn't cut due to request to cancel.";
+                    if (!startLock)
+                    {
+                        yield return "sendtochaterror Unable to cut the wire, the timer has expired.";
+                        yield break;
+                    }
 
                     intWire.OnInteract();
                 }
