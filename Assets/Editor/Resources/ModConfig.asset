@@ -13,7 +13,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: wire
   title: The Wire
-  description: 'The Wire 1.11
+  description: 'The Wire 1.12
 
     Only one wire? You should probably cut it. Wait, what do those dials do?
 
@@ -27,6 +27,6 @@ MonoBehaviour:
 
 
     Manual available here: https://ktane.timwi.de/HTML/The%20Wire.html'
-  version: 1.11
+  version: 1.12
   outputFolder: build
   previewImage: {fileID: 2800000, guid: 397407f0c901e45049e36ad9a84092be, type: 3}
